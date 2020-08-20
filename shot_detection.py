@@ -28,19 +28,7 @@ def recall_precision_shots(movie_id):
             if VI[j] - 1 <= MG[i] <= VI[j] + 1:
                 prev = j + 1
                 count += 1
-    return (round(count / len(VI) * 100, 1), round(count / len(MG) * 100, 1))
+    return (round(count / len(VI), 3), round(count / len(MG), 3))
 
-def median_shots():
-    """returns the median recall and precision of the shot detection software,
-    comparing the MG dataset to the results found on VI"""
-    precision = []
-    recall = []
-    with open('movie_list.txt') as f:
-        for l in f:
-            p, r = recall_precision_shots(l.split('\t')[0])
-            if p > 50:
-                precision.append(p)
-                recall.append(r)
-    return (np.median(precision), np.median(recall))
 
             
