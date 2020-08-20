@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jul 15 18:35:01 2020
-
-@author: Maika
-"""
-
 import json
 import moviegraphs
 from imdb import IMDb
@@ -14,8 +6,9 @@ json_dir = '/project/vi_json/'
 
 
 def cast_list(movie_id):
-    """returns a dictionry where the keys are associcated to the 
-    characters in the movie and the values are the actors that play them"""
+    """given the imdb id of a movie,
+    returns a dictionary where the keys are associcated to the 
+    characters and the values are the actors that play them"""
     roles = dict()
     
     ia = IMDb()
@@ -24,13 +17,11 @@ def cast_list(movie_id):
     for i in movie['cast']:
         actor = i["name"]
         character = i.currentRole
-        if isinstance(character, list):
-            for i in character:
-                if "name" in i:
-                    roles[i["name"]] = actor
-        else:
-            if "name" in character: 
-                roles[character["name"]] = actor
+        if not isinstance(character, list):
+            character = [character]
+        for i in character:
+            if "name" in i:
+                roles[i["name"]] = actor
             
     return roles
 
@@ -57,7 +48,7 @@ def chars_in_scenes(scenes, chars):
         for (c, apperances) in chars.items():
             for a in apperances: 
                 # if the two tuples (s,e) and (a[0], a[1]) overlap
-                if(a[1] >= s + 0.1 and a[0] <= e - 0.1): 
+                if(a[1] >= s and a[0] <= e): 
                     characters.append(c) 
                     break
         res.append(characters)
@@ -70,6 +61,7 @@ def get_chars_vi(test_id):
     chars = get_character_app_dict(test_id)
     c = chars_in_scenes(scenes, chars)
     actors = cast_list(test_id)
+    
     for i in range(len(c)):
         unknown = []
         for j in range(len(c[i])):
