@@ -1,20 +1,17 @@
-
 ## Requirements
 # python 3 (should work on most versions!)
 # numpy
 # networkx=1.11  NOTE: networkx-2 will NOT work because they changed many functions!
 
-#import pickle
-#with open('2017-11-02-51-7637_py3.pkl', 'rb') as fid:
-#    all_mg = pickle.load(fid, encoding='latin1')
-
-    # latin1 is important here
+import pickle
+with open('2017-11-02-51-7637_py3.pkl', 'rb') as fid:
+    all_mg = pickle.load(fid, encoding='latin1')
 
 # all_mg is a dictionary of MovieGraph objects
 # indexed by imdb unique movie identifiers
-scene_dir = '/project/mg_videoinfo/scene_boundaries/' # Change to your path
-vid_dir = '/project/mg_videoinfo/video_boundaries/' # Change to your path
-json_dir = '/project/vi_json/' # Change to your path
+
+scene_dir = '~/mg_videoinfo/scene_boundaries/' # Change to your path
+vid_dir = '~/internship/mg_videoinfo/video_boundaries/' # Change to your path
 
 def load_scene_gt(all_mg, movie_id):
     scene_boundaries = []
@@ -26,7 +23,6 @@ def load_scene_gt(all_mg, movie_id):
         scene_boundaries.append((s, e))
 
     return scene_boundaries
-
 
 def load_vid_events(vid_dir, movie_id):
     vid_events = [(0, 0.0)]
