@@ -39,8 +39,8 @@ with open('movie_list.txt', 'r') as f:
         movie_id = l.split('\t')[0]
         p, r = recall_precision_shots(movie_id)
         worksheet.write(row, 0, movie_id)
-        worksheet.write(row, 1, '{}%'.format(round(p*100, 1))
-        worksheet.write(row, 2, '{}%'.format(round(r*100, 1))
+        worksheet.write(row, 1, '{}%'.format(round(p*100, 1)))
+        worksheet.write(row, 2, '{}%'.format(round(r*100, 1)))
         row += 1
         
 workbook.close()
