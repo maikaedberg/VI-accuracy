@@ -1,10 +1,10 @@
 import json
 
-json_dir = '/project/vi_json/' #change to your path
-movie_id = 'tt0146882'
+json_dir = '~/vi_json/'  #change to your path
 
-with open(json_dir + movie_id + '.json') as f:
-    data = json.load(f)
+def load_data(movie_id):
+    with open(json_dir + movie_id + '.json') as f:
+        return json.load(f)
     
 def time_to_secs(t):
     l = t.split(':')
@@ -49,3 +49,15 @@ def load_faces(data):
             faces[i["name"]].append((j['startTime'],j['endTime']))
             
     return faces
+
+def get_character_app_dict(name):
+    """returns a dictionary where the key is the actor 
+    name in the VideoIndexer dataset, and the value is the 
+   intervals (in seconds) at which they appear"""
+    
+    with open(json_dir + name + '.json') as infile:
+        data = json.load(infile)
+    char_app = dict()
+    for i in data["summarizedInsights"]["faces"]:
+        char_app[i["name"]] = [(j['startSeconds'],j['endSeconds']) for j in i["appearances"]]
+    return char_app
