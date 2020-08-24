@@ -16,3 +16,5 @@ To get the precision and recall of the shot boundary detection software, run `sh
 This creates a file `shot_boundaries.xlsx` where the first column are the IMdb ids, the second column are the precisions, and the third column are the recalls.
 Now, to get the precision of the facial identification software, run `characters.py`. This creates the file `facial_identification_precision.xlsx` which gives
 the precision of all the identified actors in VI. 
+
+For the other two features studied in the paper; To study the accuracy of shot type, load_shot_type returns a dictionary where the keys start and ending timestamp of each shot and the values are the shot type labels. Now, to study the accuracy of scene splitting, load_scenes gives the list of tuples, which indicate the startinga and ending timestamp of each scene.
